@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.term.entity.UserEntity;
+import com.example.term.enums.UserType;
 import com.example.term.mapper.UserMapper;
 import com.example.term.utils.LoginToken;
 import org.apache.commons.lang3.StringUtils;
@@ -48,6 +49,17 @@ public class LoginInterceptor implements HandlerInterceptor {
                 } catch (JWTVerificationException e) {
                     throw new RuntimeException("解析错误");
                 }
+
+                // 用户类别判断
+                if (loginToken.type() == UserType.SafetyController.key){
+                    if (entity.getType() != UserType.SafetyController.key)
+                        throw new RuntimeException("用户权限不够, 这是"+UserType.SafetyController.value+"类型用户");
+                }
+                if (loginToken.type() == UserType.SafetyManagement.key){
+                    if (entity.getType() != UserType.SafetyManagement.key)
+                        throw new RuntimeException("用户权限不够, 这是"+UserType.SafetyManagement.value+"类型用户");
+                }
+
             }
         }
         return true;

@@ -12,7 +12,7 @@ import java.util.Objects;
 @TableName("acceptance")
 @Data
 public class AcceptanceEntity implements Serializable {
-    @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     @TableField(value = "accept_option")
     private String acceptOption;
@@ -21,9 +21,9 @@ public class AcceptanceEntity implements Serializable {
     @TableField(value = "create_date", fill = FieldFill.INSERT)
     private LocalDateTime createDate;
     @TableField(value = "accept_status")
-    private Boolean acceptStatus;
+    private String acceptStatus;
     @TableField
-    private Integer did;
+    private Integer rid;
 
     @Override
     public boolean equals(Object o) {
@@ -35,11 +35,11 @@ public class AcceptanceEntity implements Serializable {
                 Objects.equals(uid, that.uid) &&
                 Objects.equals(createDate, that.createDate) &&
                 Objects.equals(acceptStatus, that.acceptStatus) &&
-                Objects.equals(did, that.did);
+                Objects.equals(rid, that.rid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, acceptOption, uid, createDate, acceptStatus, did);
+        return Objects.hash(id, acceptOption, uid, createDate, acceptStatus, rid);
     }
 }

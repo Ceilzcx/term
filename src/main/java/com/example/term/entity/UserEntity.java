@@ -22,19 +22,9 @@ public class UserEntity implements Serializable {
 
     private String password;
 
-    private String type;
+    private Integer type;
 
     private Integer eid;
 
-    @Override
-    public String toString() {
-        return "Users{" +
-        "id=" + id +
-        ", username=" + username +
-        ", nickname=" + nickname +
-        ", password=" + password +
-        ", type=" + type +
-        ", eid=" + eid +
-        "}";
-    }
+
 }

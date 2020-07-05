@@ -6,6 +6,7 @@
 ### 隐患模块
 + 添加隐患
 ```text
+POST
 http://localhost:8088/term/danger
 {
   "type": "烟花爆竹",
@@ -25,7 +26,7 @@ http://localhost:8088/term/danger
     "msg": "success",
     "data": {
         "dangerEntity": {
-            "id": null,
+            "id": 1,
             "type": 2,
             "riskSource": "浙江大学城市学院",
             "level": 2,
@@ -126,3 +127,74 @@ http://localhost:8088/term/dangers/others
 ### 隐患整改模块
 
 ### 隐患整改验收模块
+```text
+POST
+http://localhost:8088/term/acceptance
+{
+  "acceptOption": "hahaha",
+  "uid": "1",
+  "acceptStatus": "1",
+  "rid": "1"
+}
+结果:
+{
+    "status": 200,
+    "msg": "success",
+    "data": {
+        "id": 3,
+        "acceptOption": "hahaha",
+        "uid": 1,
+        "createDate": "2020-07-05T16:31:37.26",
+        "acceptStatus": "完成整控",
+        "rid": 1
+    }
+}
+```
++ 通过主键id获得信息
+```text
+http://localhost:8088/term/acceptance/1
+```
++ 通过整改id获得信息(外键唯一)
+```text
+http://localhost:8088/term/acceptance/rid/1
+```
+
+### 企业模块
++ 查看企业信息
+```text
+http://localhost:8088/term/enterprise/1
+```
+
+### 用户模块
+> JWT生成token返回, 通过拦截器对不同类型的用户进行拦截
++ 登录(android保存token)
+```text
+POST
+http://localhost:8088/term/user/login
+{
+  "username": "admin",
+  "password": "123456"
+}
+结果:
+{
+    "status": 200,
+    "msg": "success",
+    "data": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxIn0.qfd0G-elhE1aGr15LrnYlIZ_3UToaOM5HeMcXrmDGBM"
+}
+```
++ getInfo(**头部添加token**)
+```text
+http://localhost:8088/term/user
+{
+    "status": 200,
+    "msg": "success",
+    "data": {
+        "id": 1,
+        "username": "admin",
+        "nickname": "admin",
+        "password": "123456",
+        "type": "企业安全管理员",
+        "eid": 1
+    }
+}
+```

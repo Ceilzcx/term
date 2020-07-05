@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LoginToken {
     boolean required() default true;
-    String type();
+    int type();
 }

@@ -6,4 +6,6 @@ public interface IUserService {
 
     UserEntity isUserNameExist(String username);
 
+    UserEntity getInfo(int id);
+
 }

@@ -3,6 +3,7 @@ package com.example.term.controller;
 
 import com.example.term.form.DangerForm;
 import com.example.term.service.IDangerService;
+import com.example.term.utils.LoginToken;
 import com.example.term.utils.Result;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,13 @@ public class DangerController {
     }
 
     @GetMapping("/dangers/keynote")
+    @LoginToken(type = 3)
     public Result findKeynoteDangers(){
         return Result.success(dangerService.getKeynoteDangers());
     }
 
     @GetMapping("/dangers/others")
+    @LoginToken(type = 2)
     public Result findNotKeynoteDangers(){
         return Result.success(dangerService.getNotKeynoteDangers());
     }
