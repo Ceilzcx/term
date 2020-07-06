@@ -17,7 +17,7 @@ public class RectificationEntity implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String condition;
+    private int type;
 
     private String measure;
 

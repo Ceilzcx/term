@@ -28,7 +28,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    @LoginToken(type = "")
+    @LoginToken(type = 1)
     public UserEntity getInfo(int id) {
         return userMapper.selectById(id);
     }

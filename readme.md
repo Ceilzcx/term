@@ -125,6 +125,61 @@ http://localhost:8088/term/dangers/others
 ```
 
 ### 隐患整改模块
++ 添加整改信息(type查看enums的DangerStatus)
+```text
+POST
+http://localhost:8088/term/rectification
+{
+  "type": "完成整控",
+  "measure": "111",
+  "uid": "1",
+  "did": "1",
+  "position": ["杭州市", "宁波市"]
+}
+结果:
+{
+    "status": 200,
+    "msg": "success",
+    "data": {
+        "entity": {
+            "id": 1,
+            "type": 1,
+            "measure": "111",
+            "document": null,
+            "uid": 1,
+            "createDate": "2020-07-05T20:50:16.93",
+            "pid1": 15,
+            "pid2": 16,
+            "pid3": null,
+            "did": 1
+        },
+        "photoEntityList": [
+            {
+                "id": 15,
+                "url": null,
+                "createDate": "2020-07-05T20:50:16.75",
+                "uid": 1,
+                "position": "杭州市"
+            },
+            {
+                "id": 16,
+                "url": null,
+                "createDate": "2020-07-05T20:50:16.923",
+                "uid": 1,
+                "position": "宁波市"
+            }
+        ]
+    }
+}
+```
++ 主键获得整改信息
+```text
+http://localhost:8088/term/rectification/1
+```
++ 通过隐患id获得整改信息
+```text
+http://localhost:8088/term/rectification/did/1
+```
 
 ### 隐患整改验收模块
 ```text

@@ -99,10 +99,6 @@ public class DangerServiceImpl implements IDangerService {
         return result;
     }
 
-
-
-
-
     @Override
     public DangerEntity getInfo(int did) {
         return dangerMapper.selectById(did);
