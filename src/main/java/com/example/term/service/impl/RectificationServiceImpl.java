@@ -7,12 +7,20 @@ import com.example.term.form.RectificationForm;
 import com.example.term.mapper.PhotoMapper;
 import com.example.term.mapper.RectificationMapper;
 import com.example.term.service.IRectificationService;
+import com.example.term.utils.UploadBean;
 import com.example.term.vo.RectificationPhotoVo;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +32,8 @@ public class RectificationServiceImpl implements IRectificationService {
     private RectificationMapper rectificationMapper;
     @Resource
     private PhotoMapper photoMapper;
+    @Resource
+    private UploadBean bean;
 
     @Override
     public RectificationEntity getInfo(int id) {
@@ -68,7 +78,39 @@ public class RectificationServiceImpl implements IRectificationService {
 
     @Override
     public RectificationEntity updateDocument(int id, MultipartFile file) {
-        return null;
+        RectificationEntity entity = rectificationMapper.selectById(id);
+        if (entity == null)
+            throw new RuntimeException("整改数据不存在");
+        LocalDateTime now = LocalDateTime.now();
+        String docPath = "rectification/doc-" + entity.getUid() + "-" + now.toInstant(ZoneOffset.of("+8")).toEpochMilli() + ".png";
+        String finalDocPath = bean.getRootPath() + docPath;
+
+        FileOutputStream fos = null;
+        InputStream fis = null;
+        try {
+            File docFile = new File(finalDocPath);
+            if (docFile.getParentFile() != null)
+                docFile.getParentFile().mkdirs();
+            fos = new FileOutputStream(docFile);
+            fis = file.getInputStream();
+            IOUtils.copy(fis, fos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+                if (fis != null)
+                    fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        entity.setDocument(bean.getUrlPath() + docPath);
+        entity.setCreateDate(now);
+        rectificationMapper.updateById(entity);
+        return entity;
     }
 
 }

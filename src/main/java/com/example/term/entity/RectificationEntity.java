@@ -12,8 +12,7 @@ import java.io.Serializable;
 @Data
 public class RectificationEntity implements Serializable {
 
-    private static final long serialVersionUID=1L;
-
+    private static final long serialVersionUID = -4292863052317680599L;
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 

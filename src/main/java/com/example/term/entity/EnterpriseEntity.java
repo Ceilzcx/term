@@ -11,8 +11,7 @@ import java.io.Serializable;
 @Data
 public class EnterpriseEntity implements Serializable {
 
-    private static final long serialVersionUID=1L;
-
+    private static final long serialVersionUID = 8475782736490280446L;
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 

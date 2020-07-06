@@ -32,10 +32,9 @@ public class RectificationController {
         return Result.success(service.createRectification(form));
     }
 
-    @PostMapping("/rectification/document")
-    public Result updateDocument(@RequestParam("document") MultipartFile files){
-
-        return Result.success(null);
+    @PostMapping("/rectification/document/{id}")
+    public Result updateDocument(@RequestParam("document") MultipartFile file, @PathVariable int id){
+        return Result.success(service.updateDocument(id, file));
     }
 
 }

@@ -7,9 +7,9 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DangerVo {
-    int id;
+    Integer id;
     String riskSource;
     String status;
     String type;
-    int timeLevel;
+    Integer timeLevel;
 }

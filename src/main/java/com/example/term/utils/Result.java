@@ -2,13 +2,15 @@ package com.example.term.utils;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * JSON返回的对象封装
  */
 @Data
-public class Result {
+public class Result implements Serializable {
+    private static final long serialVersionUID = 2627220709786748205L;
     private Integer status;
     private String msg;
     private Object data;

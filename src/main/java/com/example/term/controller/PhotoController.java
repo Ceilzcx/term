@@ -1,7 +1,10 @@
 package com.example.term.controller;
 
+import com.example.term.entity.PhotoEntity;
 import com.example.term.service.IPhotoService;
 import com.example.term.utils.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
@@ -19,10 +22,10 @@ public class PhotoController {
         return Result.success(photoService.getInfo(id));
     }
 
-    @PostMapping("photo/upload")
-    public Result uploadPhoto(@RequestParam int id, @RequestParam("photo") MultipartFile file){
-
-        return Result.success(null);
+    @PostMapping("photo/upload/{id}")
+    public Result uploadPhoto(@PathVariable int id, @RequestParam("photo") MultipartFile file){
+        PhotoEntity entity = photoService.uploadPhoto(id, file);
+        return Result.success(entity);
     }
 
 }

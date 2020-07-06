@@ -11,6 +11,7 @@ import java.io.Serializable;
 @TableName("danger")
 @Data
 public class DangerEntity implements Serializable {
+    private static final long serialVersionUID = 3848433407406063370L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;

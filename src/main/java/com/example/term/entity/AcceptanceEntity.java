@@ -12,6 +12,8 @@ import java.util.Objects;
 @TableName("acceptance")
 @Data
 public class AcceptanceEntity implements Serializable {
+    private static final long serialVersionUID = -4372049426558614224L;
+
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     @TableField(value = "accept_option")

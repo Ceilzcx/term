@@ -60,6 +60,10 @@ http://localhost:8088/term/danger
 }
 ```
 + 添加图片(通过返回的图片id添加图片内容)
+图片通过url获得,从本地文件映射
+```text
+http://localhost:8088/term/photo/upload/{id}
+```
 
 #### 获得隐患列表(分为安管负责人和安管员)
 + 排查用户
@@ -180,6 +184,10 @@ http://localhost:8088/term/rectification/1
 ```text
 http://localhost:8088/term/rectification/did/1
 ```
++ 通过隐患id上传文档信息(二进制,与添加分开)
+```text
+http://localhost:8088/term/rectification/document/{id}
+```
 
 ### 隐患整改验收模块
 ```text
@@ -253,3 +261,4 @@ http://localhost:8088/term/user
     }
 }
 ```
+
