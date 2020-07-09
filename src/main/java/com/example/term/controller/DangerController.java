@@ -14,6 +14,11 @@ public class DangerController {
     @Resource
     private IDangerService dangerService;
 
+    @GetMapping("/dangers/enterprise/{eid}")
+    public Result findDangers(@PathVariable int eid){
+        return Result.success(dangerService.getAllDanger(eid));
+    }
+
     @GetMapping("/dangers/{uid}")
     public Result findDangersByUid(@PathVariable int uid){
         return Result.success(dangerService.getDangersByUid(uid));
@@ -32,7 +37,7 @@ public class DangerController {
     }
 
     @GetMapping("/dangers/rectification")
-    @LoginToken(type = 4)
+//    @LoginToken(type = 4)
     public Result findRectification() {
         return Result.success(dangerService.getRectDangers());
     }

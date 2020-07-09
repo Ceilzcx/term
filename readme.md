@@ -135,6 +135,34 @@ http://localhost:8088/term/dangers/others
     ]
 }
 ```
++ 验收员
+```text
+http://localhost:8088/term/dangers/rectification
+{
+    "status": 200,
+    "msg": "success",
+    "data": [
+        {
+            "id": 1,
+            "riskSource": "浙江大学城市学院",
+            "status": "完成整控",
+            "type": "机械安全",
+            "timeLevel": 1
+        },
+~~~~        {
+            "id": 7,
+            "riskSource": "1",
+            "status": "已整控",
+            "type": "机械安全",
+            "timeLevel": -1
+        }
+    ]
+}
+```
++ 公司所有隐患列表
+```text
+http://localhost:8088/term/dangers/enterprise/1
+```
 
 ### 隐患整改模块
 + 添加整改信息(type查看enums的DangerStatus)

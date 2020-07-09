@@ -18,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DangerServiceImpl implements IDangerService {
@@ -57,8 +59,13 @@ public class DangerServiceImpl implements IDangerService {
     }
 
     @Override
-    public List<DangerVo> getAllDanger() {
-        return null;
+    public List<DangerVo> getAllDanger(int eid) {
+        List<DangerEntity> entities = dangerMapper.getDangerByEid(eid);
+        List<DangerVo> result = new ArrayList<>();
+        for (DangerEntity entity : entities) {
+            result.add(changeToVo(entity));
+        }
+        return result;
     }
 
     @Override
@@ -105,16 +112,21 @@ public class DangerServiceImpl implements IDangerService {
 
     @Override
     public List<DangerVo> getRectDangers() {
-        List<DangerEntity> entities = dangerMapper.selectList(
-                new QueryWrapper<DangerEntity>()
-                        .lambda()
-                        .eq(DangerEntity::getDangerStatus, DangerStatus.finish.key)
-                        .eq(DangerEntity::getDangerStatus, DangerStatus.controlled.key)
-                        .ne(DangerEntity::getLevel, DangerLevel.keynote.key));
+        Map<String, Object> selectMap = new HashMap<>();
+        selectMap.put("danger_status", DangerStatus.finish.key);
+        List<DangerEntity> entities = dangerMapper.selectByMap(selectMap);
         List<DangerVo> result = new ArrayList<>();
         for (DangerEntity entity : entities) {
             result.add(changeToVo(entity));
         }
+
+        selectMap.remove("danger_status");
+        selectMap.put("danger_status", DangerStatus.controlled.key);
+        entities = dangerMapper.selectByMap(selectMap);
+        for (DangerEntity entity : entities) {
+            result.add(changeToVo(entity));
+        }
+
         return result;
     }
 
