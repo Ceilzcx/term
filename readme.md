@@ -4,6 +4,30 @@
 > 对不用用户获得的信息会使用@LoginToken注解的type进行拦截
 
 ### 隐患模块
++ 查看隐患
+```text
+http://localhost:8088/term/danger/1
+{
+    "status": 200,
+    "msg": "success",
+    "data": {
+        "id": 1,
+        "type": "机械安全",
+        "riskSource": "浙江大学城市学院",
+        "level": "重点",
+        "description": "1",
+        "measure": "1",
+        "timeLimit": 10,
+        "uid": 1,
+        "createDate": "2020-07-04T21:32:31",
+        "pid1": 1,
+        "pid2": null,
+        "pid3": null,
+        "dangerStatus": "完成整控"
+    }
+}
+```
+
 + 添加隐患
 ```text
 POST

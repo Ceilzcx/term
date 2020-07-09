@@ -2,6 +2,7 @@ package com.example.term.service;
 
 import com.example.term.entity.DangerEntity;
 import com.example.term.form.DangerForm;
+import com.example.term.vo.DangerInfoVo;
 import com.example.term.vo.DangerPhotoVo;
 import com.example.term.vo.DangerVo;
 
@@ -26,8 +27,8 @@ public interface IDangerService {
     List<DangerVo> getRectDangers();
 
 
-    DangerEntity getInfo(int did);
+    DangerInfoVo getInfo(int did);
 
-    DangerEntity updateStatus(int did, String status);
+    DangerInfoVo updateStatus(int did, String status);
 
 }

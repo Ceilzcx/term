@@ -10,6 +10,7 @@ import com.example.term.form.DangerForm;
 import com.example.term.mapper.DangerMapper;
 import com.example.term.mapper.PhotoMapper;
 import com.example.term.service.IDangerService;
+import com.example.term.vo.DangerInfoVo;
 import com.example.term.vo.DangerPhotoVo;
 import com.example.term.vo.DangerVo;
 import org.springframework.beans.BeanUtils;
@@ -131,14 +132,13 @@ public class DangerServiceImpl implements IDangerService {
     }
 
     @Override
-    public DangerEntity getInfo(int did) {
+    public DangerInfoVo getInfo(int did) {
         DangerEntity entity = dangerMapper.selectById(did);
-        entity.setDangerStatus(DangerStatus.getValue(entity.getDangerStatus()));
-        return entity;
+        return changeToInfoVo(entity);
     }
 
     @Override
-    public DangerEntity updateStatus(int did, String status) {
+    public DangerInfoVo updateStatus(int did, String status) {
         return null;
     }
 
@@ -150,6 +150,15 @@ public class DangerServiceImpl implements IDangerService {
         dangerVo.setTimeLimit(entity.getTimeLimit());
         dangerVo.setType(DangerType.getValue(entity.getType()));
         return dangerVo;
+    }
+
+    private DangerInfoVo changeToInfoVo(DangerEntity entity){
+        DangerInfoVo vo = new DangerInfoVo();
+        BeanUtils.copyProperties(entity, vo);
+        vo.setDangerStatus(DangerStatus.getValue(entity.getDangerStatus()));
+        vo.setLevel(DangerLevel.getValue(entity.getLevel()));
+        vo.setType(DangerType.getValue(entity.getType()));
+        return vo;
     }
 
 }
