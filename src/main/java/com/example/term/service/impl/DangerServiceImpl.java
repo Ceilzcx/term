@@ -132,7 +132,9 @@ public class DangerServiceImpl implements IDangerService {
 
     @Override
     public DangerEntity getInfo(int did) {
-        return dangerMapper.selectById(did);
+        DangerEntity entity = dangerMapper.selectById(did);
+        entity.setDangerStatus(DangerStatus.getValue(entity.getDangerStatus()));
+        return entity;
     }
 
     @Override
@@ -145,7 +147,7 @@ public class DangerServiceImpl implements IDangerService {
         dangerVo.setId(entity.getId());
         dangerVo.setRiskSource(entity.getRiskSource());
         dangerVo.setStatus(DangerStatus.getValue(entity.getDangerStatus()));
-        dangerVo.setTimeLevel(entity.getLevel());
+        dangerVo.setTimeLimit(entity.getTimeLimit());
         dangerVo.setType(DangerType.getValue(entity.getType()));
         return dangerVo;
     }

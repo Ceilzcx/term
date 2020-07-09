@@ -11,5 +11,5 @@ public class DangerVo {
     String riskSource;
     String status;
     String type;
-    Integer timeLevel;
+    int timeLimit;
 }
