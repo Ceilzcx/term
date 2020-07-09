@@ -4,7 +4,8 @@ public enum UserType {
     // 需要token认证,但不需要type认证
     Common(1, "普通用户"),
     SafetyController(2, "安管员"),
-    SafetyManagement(3, "安管负责人");
+    SafetyManagement(3, "安管负责人"),
+    VerityUser(4, "验证人员");
 
     public int key;
     public String value;

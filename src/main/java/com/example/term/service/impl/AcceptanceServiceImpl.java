@@ -20,7 +20,7 @@ public class AcceptanceServiceImpl implements IAcceptanceService {
 
     @Override
     public AcceptanceEntity getInfo(int id) {
-        return acceptanceMapper.selectById(id);
+        return setStateProperty(acceptanceMapper.selectById(id));
     }
 
     @Override
@@ -28,8 +28,9 @@ public class AcceptanceServiceImpl implements IAcceptanceService {
         Map<String, Object> selectMap = new HashMap<>();
         selectMap.put("rid", rid);
         List<AcceptanceEntity> entities = acceptanceMapper.selectByMap(selectMap);
-        if (entities.size() > 0)
-            return entities.get(0);
+        if (entities.size() > 0) {
+            return setStateProperty(entities.get(0));
+        }
         return null;
     }
 
@@ -37,8 +38,14 @@ public class AcceptanceServiceImpl implements IAcceptanceService {
     public AcceptanceEntity createAcceptance(AcceptanceForm form) {
         AcceptanceEntity entity = new AcceptanceEntity();
         BeanUtils.copyProperties(form, entity);
-        entity.setAcceptStatus(DangerStatus.getValue(form.getAcceptStatus()));
+        entity.setAcceptStatus(DangerStatus.getKey(form.getAcceptStatus()));
         acceptanceMapper.insert(entity);
+        return setStateProperty(entity);
+    }
+
+    private AcceptanceEntity setStateProperty(AcceptanceEntity entity){
+        entity.setAcceptStatus(DangerStatus.getValue(entity.getAcceptStatus()));
         return entity;
     }
+
 }

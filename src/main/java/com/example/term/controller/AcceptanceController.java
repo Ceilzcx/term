@@ -6,6 +6,7 @@ import com.example.term.form.AcceptanceForm;
 import com.example.term.service.IAcceptanceService;
 import com.example.term.utils.LoginToken;
 import com.example.term.utils.Result;
+import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -29,6 +30,7 @@ public class AcceptanceController {
     }
 
     @PostMapping("/acceptance")
+    @LoginToken(type = 4)
     public Result create(@RequestBody AcceptanceForm form){
         return Result.success(acceptanceService.createAcceptance(form));
     }

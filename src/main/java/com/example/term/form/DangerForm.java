@@ -16,6 +16,6 @@ public class DangerForm {
     String measure;
     int timeLimit;
     int uid;
-    // TODO: 图片未处理,包括url; uid使用Danger的uid
+    // 图片未处理,包括url; uid使用Danger的uid
     List<String> position;
 }

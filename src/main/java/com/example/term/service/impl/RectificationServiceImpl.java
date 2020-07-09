@@ -37,7 +37,7 @@ public class RectificationServiceImpl implements IRectificationService {
 
     @Override
     public RectificationEntity getInfo(int id) {
-        return rectificationMapper.selectById(id);
+        return setStatusProperty(rectificationMapper.selectById(id));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RectificationServiceImpl implements IRectificationService {
         List<RectificationEntity> entities = rectificationMapper.selectByMap(selectMap);
         if (entities.size() == 0)
             return null;
-        return entities.get(0);
+        return setStatusProperty(entities.get(0));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class RectificationServiceImpl implements IRectificationService {
         }
         RectificationEntity entity = new RectificationEntity();
         BeanUtils.copyProperties(form, entity);
-        entity.setType(DangerStatus.getKey(form.getType()));
+        entity.setStatus(DangerStatus.getKey(form.getStatus()));
         if (photoEntityList.size() > 0)
             entity.setPid1(photoEntityList.get(0).getId());
         if (photoEntityList.size() > 1)
@@ -73,7 +73,7 @@ public class RectificationServiceImpl implements IRectificationService {
         if (photoEntityList.size() > 2)
             entity.setPid3(photoEntityList.get(2).getId());
         rectificationMapper.insert(entity);
-        return new RectificationPhotoVo(entity, photoEntityList);
+        return new RectificationPhotoVo(setStatusProperty(entity), photoEntityList);
     }
 
     @Override
@@ -110,6 +110,11 @@ public class RectificationServiceImpl implements IRectificationService {
         entity.setDocument(bean.getUrlPath() + docPath);
         entity.setCreateDate(now);
         rectificationMapper.updateById(entity);
+        return setStatusProperty(entity);
+    }
+
+    private RectificationEntity setStatusProperty(RectificationEntity entity){
+        entity.setStatus(DangerStatus.getValue(entity.getStatus()));
         return entity;
     }
 

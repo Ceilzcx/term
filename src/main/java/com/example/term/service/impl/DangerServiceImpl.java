@@ -1,7 +1,6 @@
 package com.example.term.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.example.term.entity.DangerEntity;
 import com.example.term.entity.PhotoEntity;
 import com.example.term.enums.DangerLevel;
@@ -44,7 +43,7 @@ public class DangerServiceImpl implements IDangerService {
         }
         DangerEntity entity = new DangerEntity();
         BeanUtils.copyProperties(dangerForm, entity);
-        entity.setDangerStatus(0);
+        entity.setDangerStatus(DangerStatus.create.key);
         entity.setLevel(DangerLevel.getKey(dangerForm.getLevel()));
         entity.setType(DangerType.getKey(dangerForm.getType()));
         if (photoEntityList.size() > 0)
@@ -55,6 +54,11 @@ public class DangerServiceImpl implements IDangerService {
             entity.setPid3(photoEntityList.get(2).getId());
         dangerMapper.insert(entity);
         return new DangerPhotoVo(entity, photoEntityList);
+    }
+
+    @Override
+    public List<DangerVo> getAllDanger() {
+        return null;
     }
 
     @Override
@@ -76,7 +80,7 @@ public class DangerServiceImpl implements IDangerService {
         List<DangerEntity> entities = dangerMapper.selectList(
                 new QueryWrapper<DangerEntity>()
                         .lambda()
-                        .ne(DangerEntity::getType, DangerStatus.qualified.key)
+                        .eq(DangerEntity::getDangerStatus, DangerStatus.create.key)
                         .eq(DangerEntity::getLevel, DangerLevel.keynote.key));
         List<DangerVo> result = new ArrayList<>();
         for (DangerEntity entity : entities) {
@@ -90,7 +94,7 @@ public class DangerServiceImpl implements IDangerService {
         List<DangerEntity> entities = dangerMapper.selectList(
                 new QueryWrapper<DangerEntity>()
                         .lambda()
-                        .ne(DangerEntity::getType, DangerStatus.qualified.key)
+                        .eq(DangerEntity::getDangerStatus, DangerStatus.create.key)
                         .ne(DangerEntity::getLevel, DangerLevel.keynote.key));
         List<DangerVo> result = new ArrayList<>();
         for (DangerEntity entity : entities) {

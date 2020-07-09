@@ -66,6 +66,7 @@ http://localhost:8088/term/photo/upload/{id}
 ```
 
 #### 获得隐患列表(分为安管负责人和安管员)
+> 安管负责人和安管员只获取状态为创建的隐患列表
 + 排查用户
 ```text
 http://localhost:8088/term/dangers/{uid}
@@ -100,9 +101,16 @@ http://localhost:8088/term/dangers/keynote
     "msg": "success",
     "data": [
         {
-            "id": 1,
-            "riskSource": "浙江大学城市学院",
-            "status": "完成整控",
+            "id": 15,
+            "riskSource": "asd",
+            "status": "创建",
+            "type": "机械安全",
+            "timeLevel": 1
+        },
+        {
+            "id": 16,
+            "riskSource": "asd",
+            "status": "创建",
             "type": "机械安全",
             "timeLevel": 1
         }
@@ -134,7 +142,7 @@ http://localhost:8088/term/dangers/others
 POST
 http://localhost:8088/term/rectification
 {
-  "type": "完成整控",
+  "status": "完成整控",
   "measure": "111",
   "uid": "1",
   "did": "1",
@@ -146,29 +154,29 @@ http://localhost:8088/term/rectification
     "msg": "success",
     "data": {
         "entity": {
-            "id": 1,
-            "type": 1,
+            "id": 11,
+            "status": "完成整控",
             "measure": "111",
             "document": null,
             "uid": 1,
-            "createDate": "2020-07-05T20:50:16.93",
-            "pid1": 15,
-            "pid2": 16,
+            "createDate": "2020-07-09T14:58:58.489",
+            "pid1": 48,
+            "pid2": 49,
             "pid3": null,
             "did": 1
         },
         "photoEntityList": [
             {
-                "id": 15,
+                "id": 48,
                 "url": null,
-                "createDate": "2020-07-05T20:50:16.75",
+                "createDate": null,
                 "uid": 1,
                 "position": "杭州市"
             },
             {
-                "id": 16,
+                "id": 49,
                 "url": null,
-                "createDate": "2020-07-05T20:50:16.923",
+                "createDate": null,
                 "uid": 1,
                 "position": "宁波市"
             }
@@ -196,7 +204,7 @@ http://localhost:8088/term/acceptance
 {
   "acceptOption": "hahaha",
   "uid": "1",
-  "acceptStatus": "1",
+  "acceptStatus": "合格",
   "rid": "1"
 }
 结果:
@@ -204,11 +212,11 @@ http://localhost:8088/term/acceptance
     "status": 200,
     "msg": "success",
     "data": {
-        "id": 3,
+        "id": 5,
         "acceptOption": "hahaha",
         "uid": 1,
-        "createDate": "2020-07-05T16:31:37.26",
-        "acceptStatus": "完成整控",
+        "createDate": "2020-07-09T15:03:11.713",
+        "acceptStatus": "合格",
         "rid": 1
     }
 }
@@ -261,4 +269,3 @@ http://localhost:8088/term/user
     }
 }
 ```
-

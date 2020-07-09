@@ -41,6 +41,6 @@ public class DangerEntity implements Serializable {
 
     private Integer pid3;
     @TableField(value = "danger_status")
-    private Integer dangerStatus;
+    private String dangerStatus;
 
 }

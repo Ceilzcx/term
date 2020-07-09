@@ -11,6 +11,9 @@ public interface IDangerService {
 
     DangerPhotoVo createDanger(DangerForm dangerForm);
 
+    // TODO:按照公司获取?
+    List<DangerVo> getAllDanger();
+
     // 获得当前用户提交的所有隐患
     List<DangerVo> getDangersByUid(int uid);
 

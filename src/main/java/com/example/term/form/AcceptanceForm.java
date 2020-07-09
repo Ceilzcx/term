@@ -9,6 +9,6 @@ import lombok.experimental.FieldDefaults;
 public class AcceptanceForm {
     String acceptOption;
     Integer uid;
-    int acceptStatus;
+    String acceptStatus;
     int rid;
 }

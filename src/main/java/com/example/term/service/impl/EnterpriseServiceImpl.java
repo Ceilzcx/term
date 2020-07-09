@@ -17,4 +17,5 @@ public class EnterpriseServiceImpl implements IEnterpriseService {
     public EnterpriseEntity getInfo(int id) {
         return enterpriseMapper.selectById(id);
     }
+
 }

@@ -35,5 +35,11 @@ public class UserController {
                         TokenUtil.analysisToken(request)));
     }
 
+    @PostMapping("/user/login2")
+    public Result login2(@RequestBody LoginForm loginForm){
+        return Result.success(
+                userService.login(loginForm));
+    }
+
 }
 
