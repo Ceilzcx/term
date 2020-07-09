@@ -1,9 +1,11 @@
 package com.example.term.service.impl;
 
+import com.example.term.entity.DangerEntity;
 import com.example.term.entity.PhotoEntity;
 import com.example.term.entity.RectificationEntity;
 import com.example.term.enums.DangerStatus;
 import com.example.term.form.RectificationForm;
+import com.example.term.mapper.DangerMapper;
 import com.example.term.mapper.PhotoMapper;
 import com.example.term.mapper.RectificationMapper;
 import com.example.term.service.IRectificationService;
@@ -12,6 +14,7 @@ import com.example.term.vo.RectificationPhotoVo;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -33,6 +36,8 @@ public class RectificationServiceImpl implements IRectificationService {
     @Resource
     private PhotoMapper photoMapper;
     @Resource
+    private DangerMapper dangerMapper;
+    @Resource
     private UploadBean bean;
 
     @Override
@@ -51,6 +56,7 @@ public class RectificationServiceImpl implements IRectificationService {
     }
 
     @Override
+    @Transactional
     public RectificationPhotoVo createRectification(RectificationForm form) {
         List<String> positions = form.getPosition();
         List<PhotoEntity> photoEntityList = new ArrayList<>();
@@ -73,6 +79,9 @@ public class RectificationServiceImpl implements IRectificationService {
         if (photoEntityList.size() > 2)
             entity.setPid3(photoEntityList.get(2).getId());
         rectificationMapper.insert(entity);
+        DangerEntity dangerEntity = dangerMapper.selectById(form.getDid());
+        dangerEntity.setDangerStatus(entity.getStatus());
+        dangerMapper.updateById(dangerEntity);
         return new RectificationPhotoVo(setStatusProperty(entity), photoEntityList);
     }
 
