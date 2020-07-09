@@ -104,6 +104,21 @@ public class DangerServiceImpl implements IDangerService {
     }
 
     @Override
+    public List<DangerVo> getRectDangers() {
+        List<DangerEntity> entities = dangerMapper.selectList(
+                new QueryWrapper<DangerEntity>()
+                        .lambda()
+                        .eq(DangerEntity::getDangerStatus, DangerStatus.finish.key)
+                        .eq(DangerEntity::getDangerStatus, DangerStatus.controlled.key)
+                        .ne(DangerEntity::getLevel, DangerLevel.keynote.key));
+        List<DangerVo> result = new ArrayList<>();
+        for (DangerEntity entity : entities) {
+            result.add(changeToVo(entity));
+        }
+        return result;
+    }
+
+    @Override
     public DangerEntity getInfo(int did) {
         return dangerMapper.selectById(did);
     }

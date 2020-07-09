@@ -31,6 +31,12 @@ public class DangerController {
         return Result.success(dangerService.getNotKeynoteDangers());
     }
 
+    @GetMapping("/dangers/rectification")
+    @LoginToken(type = 4)
+    public Result findRectification() {
+        return Result.success(dangerService.getRectDangers());
+    }
+
     @GetMapping("/danger/{id}")
     public Result getInfo(@PathVariable int id){
         return Result.success(dangerService.getInfo(id));

@@ -23,6 +23,9 @@ public interface IDangerService {
     // 获得安管员操作的所有隐患(除合格状态外)
     List<DangerVo> getNotKeynoteDangers();
 
+    // 通过已整控和完成整控的隐患
+    List<DangerVo> getRectDangers();
+
 
     DangerEntity getInfo(int did);
 
