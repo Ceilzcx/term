@@ -1,8 +1,11 @@
 package com.example.term.service.impl;
 
 import com.example.term.entity.PhotoEntity;
+import com.example.term.entity.UserEntity;
 import com.example.term.mapper.PhotoMapper;
+import com.example.term.mapper.UserMapper;
 import com.example.term.service.IPhotoService;
+import com.example.term.utils.PhotoUtil;
 import com.example.term.utils.UploadBean;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ import java.time.ZoneOffset;
 public class PhotoServiceImpl implements IPhotoService {
     @Resource
     private PhotoMapper photoMapper;
+    @Resource
+    private UserMapper userMapper;
     @Resource
     private UploadBean bean;
 
@@ -56,6 +61,8 @@ public class PhotoServiceImpl implements IPhotoService {
                 e.printStackTrace();
             }
         }
+        UserEntity userEntity = userMapper.selectById(entity.getUid());
+        PhotoUtil.addWaterMark(finalPhotoPath, entity.getCreateDate(), userEntity.getUsername(), entity.getPosition());
         entity.setUrl(bean.getUrlPath() + photoPath);
         entity.setCreateDate(now);
         photoMapper.updateById(entity);

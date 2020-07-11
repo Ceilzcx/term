@@ -1,6 +1,7 @@
 package com.example.term.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.example.term.entity.DangerEntity;
 import com.example.term.entity.PhotoEntity;
 import com.example.term.enums.DangerLevel;

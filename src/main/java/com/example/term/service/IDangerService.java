@@ -1,6 +1,5 @@
 package com.example.term.service;
 
-import com.example.term.entity.DangerEntity;
 import com.example.term.form.DangerForm;
 import com.example.term.vo.DangerInfoVo;
 import com.example.term.vo.DangerPhotoVo;
@@ -25,7 +24,6 @@ public interface IDangerService {
 
     // 通过已整控和完成整控的隐患
     List<DangerVo> getRectDangers();
-
 
     DangerInfoVo getInfo(int did);
 
